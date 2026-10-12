@@ -22,15 +22,18 @@ Dentro de `uPMU_AFE`: `codigo/` (scripts), `netlists/` (los `.cir` y el `.asc` d
 
 ## Cadena de medición
 
-```
-red -> sensor -> burden -> filtro RC -> ADC 12 bit dual a 60 kS/s (TIM2 + DMA)
-    -> CIC orden 3, R = 4 (entero) -> ventana de 4 ciclos -> IpDFT (Hann) + mínimos cuadrados -> fasor
-PPS (GPS) -> contador de disparos por hardware (TIM3) -> sello UTC y estado SYNC / HOLD / NOSYNC
-```
+![Cadena de medición del uPMU](uPMU_AFE/figuras/cadena_medicion.png)
+
+Cada bloque es un componente y cada flecha indica la señal que lo recorre, con su
+magnitud. Los valores del dibujo son los nominales de Colombia (120 V, 60 Hz, 35 A);
+para Chile cambian Rp y las tensiones, no la estructura.
 
 Salida por el puerto serie virtual (115200): `PMU,<utc>,<f_Hz>,<V_rms>,<V_ang>,<I_rms>,<I_ang>,<bandera>`
 a 30 reportes/s (60 Hz) o 25 reportes/s (50 Hz). Formato completo en
 [`STM32/uPMU/docs/FORMATO_TRAMA.md`](STM32/uPMU/docs/FORMATO_TRAMA.md).
+
+La figura la genera `uPMU_AFE/codigo/draw_cadena.py` a partir de `codigo/params.py`,
+así que las cifras no se desactualizan respecto de la simulación.
 
 ## Estado
 

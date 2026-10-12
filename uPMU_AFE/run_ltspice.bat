@@ -16,10 +16,11 @@ python codigo\simulate_chain.py          > resultados\results_chain.txt       ||
 python codigo\simulate_chain.py --ct-nom > resultados\results_chain_ctnom.txt || goto :err
 
 echo.
-echo [3/3] Hojas del esquematico
+echo [3/3] Hojas del esquematico y diagrama de la cadena
 python codigo\draw_sheet1.py || goto :err
 python codigo\draw_sheet2.py || goto :err
 python codigo\draw_sheet3.py || goto :err
+python codigo\draw_cadena.py || goto :err
 
 echo.
 echo Listo.
