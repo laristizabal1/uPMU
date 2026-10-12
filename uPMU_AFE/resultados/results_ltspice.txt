@@ -1,0 +1,97 @@
+==========================================================================
+uPMU AFE en LTspice  (C:\Program Files\ADI\LTspice\LTspice.exe)
+==========================================================================
+
+--- 1. AC (10 Hz..100 kHz), un canal excitado a la vez -------------
+f[Hz]  canal V |H| / fase         canal I |H| / fase         fase V-I
+50     7.579415e-03 V/V  +0.1471  1.499661e-02 V/A  +0.3204   -0.1733 deg
+60     7.579421e-03 V/V  -0.1266  1.499685e-02 V/A  +0.0179   -0.1444 deg
+
+LTspice vs modelo cerrado exacto de Python (mismo circuito, vcm = masa de
+alterna).  Umbrales: 0.1 % en modulo, 0.05 deg en fase.
+  canal V     10-   100 Hz: max dMod 0.0004 %, max dFase 0.0008 deg (a 100 Hz)
+  canal V    100-  1000 Hz: max dMod 0.0030 %, max dFase 0.0081 deg (a 1000 Hz)
+  canal V   1000-  5000 Hz: max dMod 0.0285 %, max dFase 0.0225 deg (a 4898 Hz)
+  canal V   5000-100000 Hz: max dMod 0.0511 %, max dFase 0.1780 deg (a 100000 Hz)  <<< FASE>0.05deg
+  canal I     10-   100 Hz: max dMod 0.0004 %, max dFase 0.0008 deg (a 100 Hz)
+  canal I    100-  1000 Hz: max dMod 0.0030 %, max dFase 0.0081 deg (a 1000 Hz)
+  canal I   1000-  5000 Hz: max dMod 0.0285 %, max dFase 0.0225 deg (a 4898 Hz)
+  canal I   5000-100000 Hz: max dMod 0.0511 %, max dFase 0.1780 deg (a 100000 Hz)  <<< FASE>0.05deg
+  La diferencia que crece por encima de 5 kHz esta explicada: el modelo
+  cerrado no incluye la capacidad de juntura de los 1N4148 (Cjo 4 pF, ~2,5 pF
+  con 1,65 V de inversa, dos por nodo).  Suma ~5 pF al pin y mueve su polo de
+  23 MHz a 13 MHz: 0,02 deg a 5 kHz y 0,0003 deg a 60 Hz.
+
+LTspice vs la formula simple de simulate_chain.py (solo RC, CT ideal):
+  canal V a 50 Hz: dMod = -0.0092 %, dFase = +0.8256 deg
+  canal V a 60 Hz: dMod = -0.0061 %, dFase = +0.6877 deg
+  canal I a 50 Hz: dMod = -0.0156 %, dFase = +0.9989 deg
+  canal I a 60 Hz: dMod = -0.0109 %, dFase = +0.8321 deg
+
+--- 2. Efecto de modelar el magnetizante del CT (antes/despues) ----
+f[Hz]  fase V ideal->real     fase I ideal->real     fase V-I ideal->real
+50     -0.6796 -> +0.1471     -0.6796 -> +0.3204     +0.0000 -> -0.1733 deg
+60     -0.8155 -> -0.1266     -0.8155 -> +0.0179     +0.0000 -> -0.1444 deg
+Sensibilidad de la fase V-I a la frecuencia (lo que NO quita calibrar en f0):
+  Colombia 60 Hz -5 Hz: fase V-I -0.1444 -> -0.1575 deg (residuo -0.0131)
+  Colombia 60 Hz +5 Hz: fase V-I -0.1444 -> -0.1333 deg (residuo +0.0111)
+  Chile    50 Hz -5 Hz: fase V-I -0.1733 -> -0.1926 deg (residuo -0.0193)
+  Chile    50 Hz +5 Hz: fase V-I -0.1733 -> -0.1575 deg (residuo +0.0158)
+Fase absoluta por canal (importa para el fasor contra UTC):
+  (el firmware YA compensa el polo RC, asi que el residuo real es solo el
+   termino del CT: fase con CT real menos fase con CT ideal, referida a f0)
+  Colombia canal V: fase cruda -0.1266 deg | eps_CT +0.6889 deg -> residuo tras calibrar en f0: +0.0626 / -0.0530
+  Colombia canal I: fase cruda +0.0179 deg | eps_CT +0.8333 deg -> residuo tras calibrar en f0: +0.0757 / -0.0641
+  Chile    canal V: fase cruda +0.1471 deg | eps_CT +0.8266 deg -> residuo tras calibrar en f0: +0.0919 / -0.0752
+  Chile    canal I: fase cruda +0.3204 deg | eps_CT +1.0000 deg -> residuo tras calibrar en f0: +0.1112 / -0.0909
+
+--- 3. Atenuacion del canal V respecto a 60 Hz ---------------------
+  1000 Hz: -0.2 dB, 4222 Hz: -3.0 dB, 7500 Hz: -6.2 dB, 15000 Hz: -11.4 dB, 30000 Hz: -17.1 dB, 100000 Hz: -27.5 dB
+  con el CIC3 (R=4) en cascada: 7500 Hz: -17.3 dB, 11000 Hz: -36.9 dB, 22000 Hz: -48.4 dB, 37500 Hz: -53.1 dB, 52500 Hz: -33.0 dB
+  peor rechazo entre 7,5 kHz y 60 kHz: -17.3 dB a 7500 Hz (lo que alias a la banda de 15 kS/s)
+
+--- 4. Transitorio: recorrido en el pin del ADC --------------------
+red        carga  V(adcv) min..max V(adci) min..max margen a 0/3,3 V
+Colombia   nom     0.364.. 2.936 V   0.908.. 2.392 V  0.364 V / 0.364 V
+                       corriente maxima en los 1N4148: 7.52e-09 A
+                       vs modelo cerrado, muestra a muestra: dV 0.011 mV, dI 0.009 mV (1 LSB = 0.806 mV)
+Colombia   ovl     0.106.. 3.194 V   0.165.. 3.135 V  0.106 V / 0.106 V
+                       corriente maxima en los 1N4148: 7.76e-09 A
+                       vs modelo cerrado, muestra a muestra: dV 0.014 mV, dI 0.016 mV (1 LSB = 0.806 mV)
+Chile      nom     0.411.. 2.889 V   0.908.. 2.392 V  0.411 V / 0.411 V
+                       corriente maxima en los 1N4148: 7.30e-09 A
+                       vs modelo cerrado, muestra a muestra: dV 0.011 mV, dI 0.008 mV (1 LSB = 0.806 mV)
+Chile      ovl     0.163.. 3.137 V   0.165.. 3.135 V  0.163 V / 0.163 V
+                       corriente maxima en los 1N4148: 7.49e-09 A
+                       vs modelo cerrado, muestra a muestra: dV 0.014 mV, dI 0.014 mV (1 LSB = 0.806 mV)
+
+--- 5. Clamps 1N4148 en sobretension (V 400 %, I 600 %) ------------
+  V(adcv) -0.581..3.881 V, V(adci) -0.566..3.866 V
+  I(D1v)   corriente maxima 6.186e-04 A
+  I(D2v)   corriente maxima 6.186e-04 A
+  I(D1i)   corriente maxima 4.491e-04 A
+  I(D2i)   corriente maxima 4.491e-04 A
+
+--- 6. Red de muestreo del ADC: asentamiento a 12 bits -------------
+  60 ventanas de 4.10 us; error al cerrar el interruptor:
+  canal V: max 2.253e-06 V = 0.0028 LSB | canal I: max 1.389e-06 V = 0.0017 LSB
+  tau = (Rs+R_ADC)*C_SH = 10.0 ns, 12 bits piden 90 ns, hay 4.10 us -> margen 46x
+
+--- 7. Monte Carlo: R al 1 %, C al 5 %, 200 corridas ---------------
+Colombia (60 Hz, 200 corridas)  [error respecto al nominal, SIN calibrar]
+  modulo V [%]     media  -0.0425  sigma  0.8569  p95|.|  1.6003  max|.|  1.8809
+  modulo I [%]     media  -0.0897  sigma  0.5936  p95|.|  0.9631  max|.|  0.9985
+  fase V [deg]     media  -0.0037  sigma  0.0240  p95|.|  0.0397  max|.|  0.0440
+  fase I [deg]     media  +0.0010  sigma  0.0253  p95|.|  0.0430  max|.|  0.0518
+  fase V-I [deg]   media  -0.0048  sigma  0.0339  p95|.|  0.0651  max|.|  0.0825
+Chile (50 Hz, 200 corridas)  [error respecto al nominal, SIN calibrar]
+  modulo V [%]     media  -0.0425  sigma  0.8569  p95|.|  1.6002  max|.|  1.8810
+  modulo I [%]     media  -0.0897  sigma  0.5935  p95|.|  0.9629  max|.|  0.9981
+  fase V [deg]     media  -0.0032  sigma  0.0201  p95|.|  0.0339  max|.|  0.0381
+  fase I [deg]     media  +0.0007  sigma  0.0214  p95|.|  0.0368  max|.|  0.0448
+  fase V-I [deg]   media  -0.0039  sigma  0.0287  p95|.|  0.0540  max|.|  0.0688
+
+--- 8. Graficas ----------------------------------------------------
+  ltspice_ac.png
+  ltspice_tran.png
+  ltspice_montecarlo.png

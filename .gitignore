@@ -11,8 +11,8 @@ node_modules/
 # Articulos de terceros (PDF con derechos de autor): se conservan solo en local
 Paper/
 
-# Salidas regenerables de simulacion (LTspice / ngspice): se rehacen con sim/run_ltspice.py y sim/run_all.sh
-uPMU_AFE/**/*.raw
-uPMU_AFE/**/*.db
-uPMU_AFE/uPMU_AFE/sim/ng_*.json
-uPMU_AFE/uPMU_AFE/sim/out_*.json
+# Salidas regenerables de LTspice: se rehacen con uPMU_AFE/run_ltspice.bat
+uPMU_AFE/netlists/*.raw
+uPMU_AFE/netlists/*.log
+uPMU_AFE/netlists/*.net
+uPMU_AFE/netlists/*.db

@@ -10,13 +10,15 @@ sincronizado con un **GPS NEO-7M** (PPS). Objetivo: IEEE C37.118.1-2011 clase M,
 | Carpeta | Contenido |
 |---|---|
 | [`STM32/uPMU/`](STM32/uPMU) | Firmware (PlatformIO, C), herramientas de la PC, vectores de prueba, logs de medición y documentación de resultados |
-| [`uPMU_AFE/`](uPMU_AFE) | Front-end analógico: esquemáticos, netlists SPICE/LTspice y simulación de la cadena completa |
+| [`uPMU_AFE/`](uPMU_AFE) | Front-end analógico: esquemáticos, netlists de LTspice y simulación de la cadena completa. Informe: [`RESULTADOS_LTspice.pdf`](uPMU_AFE/docs/RESULTADOS_LTspice.pdf); guía de uso y montaje: [`GUIA_front_end.pdf`](uPMU_AFE/docs/GUIA_front_end.pdf) |
 | `Paper/` | Artículos de referencia (PDF de terceros): **solo local, no se versiona** |
-| [`CLAUDE.md`](CLAUDE.md) | Instrucciones de trabajo del proyecto (tareas, criterios de aceptación, reglas) |
 
 Dentro de `STM32/uPMU`: `src/` y `include/` (firmware), `tools/` (scripts Python), `data/` (logs crudos y
 `vectors/`), `docs/` (`RESULTADOS.md`, `FORMATO_TRAMA.md`), `ref/` (copia de solo lectura de la simulación de
-referencia).
+referencia, con el modelo anterior al del informe de LTspice).
+
+Dentro de `uPMU_AFE`: `codigo/` (scripts), `netlists/` (los `.cir` y el `.asc` de LTspice),
+`figuras/` (PNG), `resultados/` (salidas) y `docs/` (informes y hojas del esquemático, en PDF).
 
 ## Cadena de medición
 
