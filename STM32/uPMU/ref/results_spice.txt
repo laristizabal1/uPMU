@@ -1,0 +1,8 @@
+--- ngspice vs modelo cerrado ---
+Colombia transitorio: max|dV| = 0.023 mV, max|dI| = 0.014 mV (1 LSB = 0.806 mV) | pin ADC V: 0.364..2.936 V, I: 0.908..2.392 V
+         con +20 % de tension el pico en el pin seria 3.194 V (limite 3.300 V); I a 200 %: 3.135 V
+Chile    transitorio: max|dV| = 0.018 mV, max|dI| = 0.012 mV (1 LSB = 0.806 mV) | pin ADC V: 0.411..2.889 V, I: 0.908..2.392 V
+         con +20 % de tension el pico en el pin seria 3.137 V (limite 3.300 V); I a 200 %: 3.135 V
+AC canal I vs formula (<=5 kHz): max|dMag| = 5.6e-04, max|dFase| = 0.0453 deg
+AC canal V vs formula: la diferencia (4.4e-03 en modulo) viene de estimular el CT con 1 A a la vez; en el transitorio coincide a <0.05 mV
+Atenuacion del canal V respecto a 60 Hz: 1001 Hz: -0.2 dB, 4224 Hz: -3.0 dB, 7512 Hz: -6.2 dB, 29914 Hz: -17.1 dB

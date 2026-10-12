@@ -1,0 +1,44 @@
+* uPMU AFE - Colombia (60 Hz). Valores desde params.py
+.param Vpk=169.706
+.param Ipk=0.0247487
+.param freq=60
+.param phii=-30
+
+* --- Alimentacion analogica y punto medio de 1.65 V --------------------
+Vdda vdda 0 3.3
+Rvcm1 vdda vcm 10000
+Rvcm2 vcm 0 10000
+Cvcm1 vcm 0 1e-05
+Cvcm2 vcm 0 1e-07
+
+* --- Canal de tension: red -> Rp -> ZMPT101B (1:1) -> burden ---------------
+Vmains nL 0 SIN(0 {Vpk} {freq} 0 0 0) AC 1
+Rp nL np 62000
+Vsp np 0 0
+Fv vcm bv Vsp 1
+Rbv bv vcm 470
+Rfv bv nv 3300
+Cfv nv vcm 1e-08
+Rsv nv adcv 1000
+Cpv adcv 0 5e-12
+D1v adcv vdda DCL
+D2v 0 adcv DCL
+
+* --- Canal de corriente: SCT013-100 (2000:1) -> burden --------------------
+Ict vcm bi SIN(0 {Ipk} {freq} 0 0 {phii}) AC 1
+Rbi bi vcm 30
+Rfi bi ni 3740
+Cfi ni vcm 1e-08
+Rsi ni adci 1000
+Cpi adci 0 5e-12
+D1i adci vdda DCL
+D2i 0 adci DCL
+
+.model DCL D(Is=2.5n N=1.75 Rs=0.6 Cjo=4p)
+* Tolerancias estrictas: con reltol=1e-3 el solver deja ~2 mV de error numerico (1.2 LSB)
+.options reltol=1e-6 vntol=1e-9 abstol=1e-12
+
+* Descomenta UNA de las dos lineas:
+.tran 0 100m 0 2u
+*.ac dec 40 1 200k
+.end
