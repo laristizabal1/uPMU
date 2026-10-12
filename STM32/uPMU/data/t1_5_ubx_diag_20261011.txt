@@ -1,0 +1,31 @@
+8309 bytes, tramas UBX validas: 01-03x10, 01-30x10, 0A-09x10
+MON-HW   noisePerMS=99 agcCnt=2993/8191 antena=OK alim_antena=ON jamInd=14/255 jammingState=desconocido/desactivado rtcCalib=0
+NAV-SVINFO canales=8 con_senal=6 [SV16:10dBHz q=detectada/inutil el=-91, SV18:12dBHz q=detectada/inutil el=-91, SV19:0dBHz q=buscando el=-91, SV20:21dBHz q=detectada/inutil el=-91, SV21:19dBHz q=detectada/inutil el=-91, SV22:23dBHz q=detectada/inutil el=-91, SV23:0dBHz q=buscando el=-91, SV26:27dBHz q=code lock el=-91 orbita]
+NAV-STATUS gpsFix=sin fix gpsFixOk=0 ttff=0 ms desde_arranque=621 s
+MON-HW   noisePerMS=98 agcCnt=2993/8191 antena=OK alim_antena=ON jamInd=18/255 jammingState=desconocido/desactivado rtcCalib=0
+NAV-SVINFO canales=10 con_senal=1 [SV16:0dBHz q=buscando el=-91, SV18:0dBHz q=buscando el=-91, SV19:0dBHz q=buscando el=-91, SV20:0dBHz q=buscando el=-91, SV21:0dBHz q=buscando el=-91, SV22:0dBHz q=buscando el=-91, SV23:0dBHz q=buscando el=-91, SV24:0dBHz q=buscando el=-91, SV25:0dBHz q=buscando el=-91, SV26:27dBHz q=code lock el=-91 orbita]
+NAV-STATUS gpsFix=sin fix gpsFixOk=0 ttff=0 ms desde_arranque=624 s
+MON-HW   noisePerMS=91 agcCnt=2993/8191 antena=OK alim_antena=ON jamInd=18/255 jammingState=desconocido/desactivado rtcCalib=0
+NAV-SVINFO canales=6 con_senal=1 [SV21:0dBHz q=buscando el=-91, SV22:0dBHz q=buscando el=-91, SV23:0dBHz q=buscando el=-91, SV24:0dBHz q=buscando el=-91, SV25:0dBHz q=buscando el=-91, SV26:28dBHz q=code lock el=-91 orbita]
+NAV-STATUS gpsFix=sin fix gpsFixOk=0 ttff=0 ms desde_arranque=627 s
+MON-HW   noisePerMS=85 agcCnt=2993/8191 antena=OK alim_antena=ON jamInd=14/255 jammingState=desconocido/desactivado rtcCalib=0
+NAV-SVINFO canales=4 con_senal=2 [SV24:7dBHz q=detectada/inutil el=-91, SV25:0dBHz q=buscando el=-91, SV26:29dBHz q=code lock el=-91 orbita, SV28:0dBHz q=buscando el=-91]
+NAV-STATUS gpsFix=sin fix gpsFixOk=0 ttff=0 ms desde_arranque=630 s
+MON-HW   noisePerMS=98 agcCnt=2993/8191 antena=OK alim_antena=ON jamInd=15/255 jammingState=desconocido/desactivado rtcCalib=0
+NAV-SVINFO canales=5 con_senal=2 [SV24:0dBHz q=buscando el=-91, SV25:0dBHz q=buscando el=-91, SV26:28dBHz q=code lock el=-91 orbita, SV28:0dBHz q=buscando el=-91, SV29:17dBHz q=detectada/inutil el=-91]
+NAV-STATUS gpsFix=sin fix gpsFixOk=0 ttff=0 ms desde_arranque=633 s
+MON-HW   noisePerMS=85 agcCnt=2993/8191 antena=OK alim_antena=ON jamInd=15/255 jammingState=desconocido/desactivado rtcCalib=0
+NAV-SVINFO canales=5 con_senal=1 [SV26:29dBHz q=code lock el=-91 orbita, SV29:0dBHz q=buscando el=-91, SV30:0dBHz q=buscando el=-91, SV31:0dBHz q=buscando el=-91, SV32:0dBHz q=buscando el=-91]
+NAV-STATUS gpsFix=sin fix gpsFixOk=0 ttff=0 ms desde_arranque=636 s
+MON-HW   noisePerMS=79 agcCnt=2993/8191 antena=OK alim_antena=ON jamInd=16/255 jammingState=desconocido/desactivado rtcCalib=0
+NAV-SVINFO canales=5 con_senal=1 [SV1:0dBHz q=buscando el=-91, SV2:0dBHz q=buscando el=-91, SV26:29dBHz q=code lock el=-91 orbita, SV30:0dBHz q=buscando el=-91, SV31:0dBHz q=buscando el=-91]
+NAV-STATUS gpsFix=sin fix gpsFixOk=0 ttff=0 ms desde_arranque=639 s
+MON-HW   noisePerMS=70 agcCnt=2993/8191 antena=OK alim_antena=ON jamInd=9/255 jammingState=desconocido/desactivado rtcCalib=0
+NAV-SVINFO canales=4 con_senal=4 [SV2:19dBHz q=detectada/inutil el=-91, SV26:30dBHz q=code+carrier el=-91 orbita, SV30:23dBHz q=detectada/inutil el=-91, SV31:18dBHz q=detectada/inutil el=-91]
+NAV-STATUS gpsFix=sin fix gpsFixOk=0 ttff=0 ms desde_arranque=642 s
+MON-HW   noisePerMS=97 agcCnt=2993/8191 antena=OK alim_antena=ON jamInd=26/255 jammingState=desconocido/desactivado rtcCalib=0
+NAV-SVINFO canales=6 con_senal=2 [SV2:0dBHz q=buscando el=-91, SV4:0dBHz q=buscando el=-91, SV5:0dBHz q=buscando el=-91, SV26:29dBHz q=code lock el=-91 orbita, SV30:15dBHz q=detectada/inutil el=-91, SV31:0dBHz q=buscando el=-91]
+NAV-STATUS gpsFix=sin fix gpsFixOk=0 ttff=0 ms desde_arranque=645 s
+MON-HW   noisePerMS=84 agcCnt=2993/8191 antena=OK alim_antena=ON jamInd=18/255 jammingState=desconocido/desactivado rtcCalib=0
+NAV-SVINFO canales=4 con_senal=1 [SV2:0dBHz q=buscando el=-91, SV4:0dBHz q=buscando el=-91, SV6:0dBHz q=buscando el=-91, SV26:29dBHz q=code lock el=-91 orbita]
+NAV-STATUS gpsFix=sin fix gpsFixOk=0 ttff=0 ms desde_arranque=648 s

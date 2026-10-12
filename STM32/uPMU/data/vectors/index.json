@@ -1,0 +1,16 @@
+[
+ "vec_col_nominal",
+ "vec_col_v80i10",
+ "vec_col_v120i200",
+ "vec_col_fm2",
+ "vec_col_fp2",
+ "vec_col_fm5",
+ "vec_col_fp5",
+ "vec_chi_nominal",
+ "vec_chi_v80i10",
+ "vec_chi_v120i200",
+ "vec_chi_fm2",
+ "vec_chi_fp2",
+ "vec_chi_fm5",
+ "vec_chi_fp5"
+]
