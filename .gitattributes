@@ -1,0 +1,14 @@
+# Normaliza finales de linea: LF en el repositorio (los .sh y .py deben seguir funcionando en Linux/macOS)
+* text=auto
+*.sh  text eol=lf
+*.py  text eol=lf
+*.md  text eol=lf
+*.c   text eol=lf
+*.h   text eol=lf
+*.ini text eol=lf
+
+# Binarios
+*.pdf binary
+*.png binary
+*.bin binary
+*.raw binary
