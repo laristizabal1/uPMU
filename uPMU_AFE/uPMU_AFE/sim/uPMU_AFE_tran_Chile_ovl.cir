@@ -1,0 +1,53 @@
+* uPMU AFE - Chile (50 Hz). Valores desde params.py
+.param Vpk=373.352
+.param Ipk=0.0494975
+.param freq=50
+.param phii=-30
+
+* --- Alimentacion analogica y punto medio de 1.65 V ----------------------
+Vdda vdda 0 3.3
+Rvcm1 vdda vcm 10000
+Rvcm2 vcm 0 10000
+Cvcm1 vcm 0 1e-05
+Cvcm2 vcm 0 1e-07
+
+* --- Canal de tension: red -> Rp -> ZMPT101B -> burden -------------------
+Vmains nL 0 SIN(0 {Vpk} {freq} 0 0 0) AC 0
+Rp nL np 118000
+Vsp np 0 0
+Fv vcm nsv Vsp 1
+Lmv nsv vcm 136.784
+Rwv nsv bv 150
+Rbv bv vcm 470
+Rfv bv nv 3300
+Cfv nv vcm 1e-08
+Rsv nv adcv 1000
+Cpv adcv 0 7e-12
+D1v adcv vdda D1N4148
+D2v 0 adcv D1N4148
+
+* --- Canal de corriente: SCT-013 (2000:1) -> burden ----------------------
+Ict vcm nsi SIN(0 {Ipk} {freq} 0 0 {phii}) AC 0
+Lmi nsi vcm 9.11891
+Rwi nsi bi 20
+Rbi bi vcm 30
+Rfi bi ni 3740
+Cfi ni vcm 1e-08
+Rsi ni adci 1000
+Cpi adci 0 7e-12
+D1i adci vdda D1N4148
+D2i 0 adci D1N4148
+
+.model D1N4148 D(Is=4.352n N=1.906 Rs=.6458 Ikf=44.17m Xti=3 Eg=1.11 Cjo=4p M=.3333 Vj=.5 Fc=.5 Isr=1.21n Nr=2 Bv=110 Ibv=1u Tt=11.54n)
+.options reltol=1e-6 vntol=1e-9 abstol=1e-12
+.save V(adcv) V(adci) V(vcm) I(D1v) I(D2v) I(D1i) I(D2i)
+.tran 2u 5.12 5 2u
+.meas tran vmax MAX V(adcv)
+.meas tran vmin MIN V(adcv)
+.meas tran imax MAX V(adci)
+.meas tran imin MIN V(adci)
+.meas tran id1v MAX abs(I(D1v))
+.meas tran id2v MAX abs(I(D2v))
+.meas tran id1i MAX abs(I(D1i))
+.meas tran id2i MAX abs(I(D2i))
+.end

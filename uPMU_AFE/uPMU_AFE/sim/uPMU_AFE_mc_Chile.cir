@@ -1,0 +1,51 @@
+* uPMU AFE - Chile (50 Hz). Valores desde params.py
+.param Vpk=311.127
+.param Ipk=0.0247487
+.param freq=50
+.param phii=-30
+
+* --- Alimentacion analogica y punto medio de 1.65 V ----------------------
+Vdda vdda 0 3.3
+Rvcm1 vdda vcm {mc(10000,0.01)}
+Rvcm2 vcm 0 {mc(10000,0.01)}
+Cvcm1 vcm 0 1e-05
+Cvcm2 vcm 0 1e-07
+
+* --- Canal de tension: red -> Rp -> ZMPT101B -> burden -------------------
+Vmains nL 0 SIN(0 {Vpk} {freq} 0 0 0) AC 220
+Rp nL np {mc(118000,0.01)}
+Vsp np 0 0
+Fv vcm nsv Vsp 1
+Lmv nsv vcm 136.784
+Rwv nsv bv 150
+Rbv bv vcm {mc(470,0.01)}
+Rfv bv nv {mc(3300,0.01)}
+Cfv nv vcm {mc(1e-08,0.05)}
+Rsv nv adcv {mc(1000,0.01)}
+Cpv adcv 0 7e-12
+D1v adcv vdda D1N4148
+D2v 0 adcv D1N4148
+
+* --- Canal de corriente: SCT-013 (2000:1) -> burden ----------------------
+Ict vcm nsi SIN(0 {Ipk} {freq} 0 0 {phii}) AC 0.0175
+Lmi nsi vcm 9.11891
+Rwi nsi bi 20
+Rbi bi vcm {mc(30,0.01)}
+Rfi bi ni {mc(3740,0.01)}
+Cfi ni vcm {mc(1e-08,0.05)}
+Rsi ni adci {mc(1000,0.01)}
+Cpi adci 0 7e-12
+D1i adci vdda D1N4148
+D2i 0 adci D1N4148
+
+.model D1N4148 D(Is=4.352n N=1.906 Rs=.6458 Ikf=44.17m Xti=3 Eg=1.11 Cjo=4p M=.3333 Vj=.5 Fc=.5 Isr=1.21n Nr=2 Bv=110 Ibv=1u Tt=11.54n)
+.options reltol=1e-6 vntol=1e-9 abstol=1e-12
+.param run=1
+.step param run 1 200 1
+.save V(adcv) V(adci) V(vcm)
+.ac list 50 60
+.meas ac magv FIND mag(V(adcv)) AT 50
+.meas ac phv FIND ph(V(adcv)) AT 50
+.meas ac magi FIND mag(V(adci)) AT 50
+.meas ac phi FIND ph(V(adci)) AT 50
+.end

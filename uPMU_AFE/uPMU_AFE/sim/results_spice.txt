@@ -1,0 +1,5 @@
+--- ngspice vs modelo cerrado exacto (CT con magnetizante + RC + pin) ---
+Colombia max|dV| = 0.011 mV, max|dI| = 0.008 mV  (1 LSB = 0.806 mV)
+         pin ADC: V 0.364..2.936 V, I 0.908..2.392 V | margen 0.364 V a 0, 0.364 V a 3.3 V
+Chile    max|dV| = 0.009 mV, max|dI| = 0.007 mV  (1 LSB = 0.806 mV)
+         pin ADC: V 0.411..2.889 V, I 0.908..2.392 V | margen 0.411 V a 0, 0.411 V a 3.3 V

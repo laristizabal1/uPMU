@@ -1,0 +1,60 @@
+==============================================================================
+LTspice vs ngspice vs modelo cerrado de Python  (mismos netlists)
+Umbrales del enunciado: 0.1 % en modulo, 0.05 grados en fase
+==============================================================================
+
+--- AC: modulo y fase en el nodo del ADC ---------------------------
+canal    f[Hz] LTspice |H|    ngspice |H|    Python |H|     dMod[%]   dFase[deg]
+V        50    7.579415e-03   7.579437e-03   7.579446e-03    +0.0003   -0.0000
+               fase: LTspice  +0.1471  ngspice  +0.1471  Python  +0.1474 deg
+V        60    7.579421e-03   7.579443e-03   7.579453e-03    +0.0003   -0.0000
+               fase: LTspice  -0.1266  ngspice  -0.1266  Python  -0.1261 deg
+I        50    1.499661e-02   1.499666e-02   1.499668e-02    +0.0003   -0.0000
+               fase: LTspice  +0.3204  ngspice  +0.3204  Python  +0.3207 deg
+I        60    1.499685e-02   1.499689e-02   1.499691e-02    +0.0003   -0.0000
+               fase: LTspice  +0.0179  ngspice  +0.0178  Python  +0.0183 deg
+
+LTspice vs el modelo cerrado de Python, por banda:
+  canal V     10-   100 Hz: max dMod 0.0004 %, max dFase 0.0008 deg (a 100 Hz)
+  canal V    100-  1000 Hz: max dMod 0.0030 %, max dFase 0.0081 deg (a 1000 Hz)
+  canal V   1000-  5000 Hz: max dMod 0.0285 %, max dFase 0.0225 deg (a 4898 Hz)
+  canal V   5000-100000 Hz: max dMod 0.0511 %, max dFase 0.1780 deg (a 100000 Hz)  <<< FASE>0.05deg
+  canal I     10-   100 Hz: max dMod 0.0004 %, max dFase 0.0008 deg (a 100 Hz)
+  canal I    100-  1000 Hz: max dMod 0.0030 %, max dFase 0.0081 deg (a 1000 Hz)
+  canal I   1000-  5000 Hz: max dMod 0.0285 %, max dFase 0.0225 deg (a 4898 Hz)
+  canal I   5000-100000 Hz: max dMod 0.0511 %, max dFase 0.1780 deg (a 100000 Hz)  <<< FASE>0.05deg
+  Origen conocido de la diferencia a alta frecuencia: el modelo cerrado no
+  incluye la capacidad de juntura de los 1N4148 (Cjo 4 pF, ~2,5 pF con 1,65 V
+  de inversa, dos por nodo).  Suma ~5 pF al pin: el polo del pin pasa de
+  23 MHz a 13 MHz, lo que da ~0,02 deg a 5 kHz y ~0,0003 deg a 60 Hz.
+
+--- Fase V-I (lo que de verdad importa para la potencia) -----------
+  50 Hz: LTspice -0.1733  ngspice -0.1733  Python -0.1733 deg
+  60 Hz: LTspice -0.1444  ngspice -0.1444  Python -0.1444 deg
+
+--- Transitorio: recorrido en el pin del ADC -----------------------
+red        carga LTspice V / I            ngspice V / I            dif. maxima
+Colombia   nom    0.364.. 2.936 /  0.908.. 2.392   0.364.. 2.936 /  0.908.. 2.392  0.004 mV
+Colombia   _ovl   0.106.. 3.194 /  0.165.. 3.135   0.106.. 3.194 /  0.165.. 3.135  0.011 mV
+Chile      nom    0.411.. 2.889 /  0.908.. 2.392   0.411.. 2.889 /  0.908.. 2.392  0.004 mV
+Chile      _ovl   0.163.. 3.137 /  0.165.. 3.135   0.163.. 3.137 /  0.165.. 3.135  0.005 mV
+
+--- Monte Carlo sin calibrar: LTspice vs simulate_chain.py ---------
+No son la misma cantidad y no tienen por que coincidir:
+  * LTspice da error de MODULO y de FASE por separado, y solo con la
+    tolerancia de R (1 %) y C (5 %), que es lo que el netlist puede variar.
+  * simulate_chain.py da TVE (modulo y fase juntos) y ademas mueve la
+    relacion del CT (1 %) y la inductancia magnetizante (30 %).
+  Colombia Python TVE p95 sin calibrar: V = 2.11 %, I = 2.32 %
+  Chile    Python TVE p95 sin calibrar: V = 2.29 %, I = 2.67 %
+  LTspice, error de modulo sin calibrar p95: V = 1,60 %, I = 0,96 %.
+  Se reconcilian sumando en cuadratura los terminos que faltan (sin
+  calibrar, el desfase del CT entra entero en el TVE: TVE ~ fase[rad]):
+    canal V: modulo 1,60 % + fase 0,689 deg = 1,20 %  ->  2,00 %
+             contra 2,11 % de Python.
+    canal I: modulo 0,96 % + CT_RATIO 0,95 % + fase 0,833 deg = 1,45 %
+             ->  1,97 %, contra 2,32 % de Python.
+  Es del orden correcto; no coincide al decimal porque el p95 de una
+  suma no es la suma en cuadratura de los p95.
+
+-> results_compare.txt

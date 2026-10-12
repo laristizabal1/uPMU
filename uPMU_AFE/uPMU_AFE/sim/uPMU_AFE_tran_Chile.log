@@ -1,0 +1,26 @@
+LTspice 26.0.2 for Windows
+Circuit: C:\Users\Lenovo\Documents\Universidad\2026-20\Taller de Potencia\uPMU\uPMU_AFE\uPMU_AFE\sim\uPMU_AFE_tran_Chile.cir
+Start Time: Sun Oct 11 04:25:19 2026
+Options:reltol=1e-6 vntol=1e-9 abstol=1e-12
+solver = Alternate
+Maximum thread count: 16
+tnom = 27
+temp = 27
+method = modified trap
+reltol = 1e-06
+volttol = 1e-09
+AsciiRawFile = true
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 35.228 seconds.
+
+Files loaded:
+C:\Users\Lenovo\Documents\Universidad\2026-20\Taller de Potencia\uPMU\uPMU_AFE\uPMU_AFE\sim\uPMU_AFE_tran_Chile.cir
+
+vmax: MAX(V(adcv))=2.88903246813 FROM 0 TO 0.12
+vmin: MIN(V(adcv))=0.410967531806 FROM 0 TO 0.12
+imax: MAX(V(adci))=2.39229201375 FROM 0 TO 0.12
+imin: MIN(V(adci))=0.907707986216 FROM 0 TO 0.12
+id1v: MAX(abs(I(D1v)))=7.29909034762e-09 FROM 0 TO 0.12
+id2v: MAX(abs(I(D2v)))=7.29909043574e-09 FROM 0 TO 0.12
+id1i: MAX(abs(I(D1i)))=6.91696116046e-09 FROM 0 TO 0.12
+id2i: MAX(abs(I(D2i)))=6.91696161847e-09 FROM 0 TO 0.12

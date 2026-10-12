@@ -1,0 +1,24 @@
+
+=== Colombia (60 Hz, 120 V) - 200 combinaciones de tolerancia ===
+Sin calibrar (nominal): TVE_V p95 = 1.63 %, TVE_I p95 = 1.56 %
+Calibrado a 1 punto.  Valores = percentil 95 sobre las 200 combinaciones
+escenario             TVE_V %  TVE_I %  dFase V-I °     df mHz
+nominal                 0.008    0.013       0.0074       0.74   (max TVE_V=0.010 TVE_I=0.022)
+V 80 %, I 10 %          0.009    0.129       0.0541       6.26   (max TVE_V=0.012 TVE_I=0.167)
+V 120 %, I 200 %        0.007    0.008       0.0045       0.47   (max TVE_V=0.009 TVE_I=0.011)
+f0 - 2 Hz               0.018    0.022       0.0149       0.67   (max TVE_V=0.024 TVE_I=0.031)
+f0 + 2 Hz               0.018    0.020       0.0130       0.69   (max TVE_V=0.022 TVE_I=0.024)
+f0 - 5 Hz               0.042    0.051       0.0388       0.75   (max TVE_V=0.049 TVE_I=0.060)
+f0 + 5 Hz               0.035    0.045       0.0312       0.70   (max TVE_V=0.045 TVE_I=0.061)
+
+=== Chile (50 Hz, 220 V) - 200 combinaciones de tolerancia ===
+Sin calibrar (nominal): TVE_V p95 = 1.52 %, TVE_I p95 = 1.63 %
+Calibrado a 1 punto.  Valores = percentil 95 sobre las 200 combinaciones
+escenario             TVE_V %  TVE_I %  dFase V-I °     df mHz
+nominal                 0.007    0.012       0.0079       0.61   (max TVE_V=0.010 TVE_I=0.017)
+V 80 %, I 10 %          0.010    0.124       0.0576       5.02   (max TVE_V=0.014 TVE_I=0.170)
+V 120 %, I 200 %        0.007    0.007       0.0046       0.35   (max TVE_V=0.010 TVE_I=0.010)
+f0 - 2 Hz               0.023    0.029       0.0201       0.55   (max TVE_V=0.029 TVE_I=0.040)
+f0 + 2 Hz               0.021    0.027       0.0172       0.63   (max TVE_V=0.029 TVE_I=0.035)
+f0 - 5 Hz               0.059    0.075       0.0508       0.49   (max TVE_V=0.068 TVE_I=0.091)
+f0 + 5 Hz               0.048    0.064       0.0455       0.53   (max TVE_V=0.058 TVE_I=0.071)
